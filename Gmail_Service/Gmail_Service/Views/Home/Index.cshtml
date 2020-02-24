@@ -1,0 +1,82 @@
+﻿
+@model IList<Gmail_Service.Models.My_Message>
+
+
+@using NonFactors.Mvc.Grid;
+
+<div class="content ">
+    <div class="container">
+        <!-- your content here -->
+        @if (User.Identity.IsAuthenticated && (Model != null))
+        {
+            <h2 class="text-info"> @ViewBag.Message </h2>
+
+            @(Html
+             .Grid(Model)
+                  .Build(columns =>
+                  {
+                      columns.Add(model => model.Id).Titled("ID");
+                      columns.Add(model => model.Title).Titled("Email title");
+                      columns.Add(model => model.From).Titled("From");
+                      columns.Add(model => model.Date_Received).Titled("Date");
+                      //columns.Add(model => $"<a class=\"btn btn-primary btn-sm\" href=\"{@Url.Action("Content_Body", "Gmail")}?emailId={model.EmailId}\">View</a>").Encoded(false);
+                      columns.Add(model => $"<input type =\"button\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\"   value=\"View\" class=\"btn btn-primary btn-sm\" onClick=\"showEmailContent(\'{model.EmailId}\');\"></input>").Encoded(false);
+                      columns.Add(model => $"<a class=\"btn btn-primary btn-sm\" href=\"{@Url.Action("GoToSendEmail", "Gmail")}?emailId={model.EmailId}\">Send</a>").Encoded(false);
+
+                  }).Empty("No data found").Filterable().Sortable().Css("table").AppendCss("table-hover").Pageable(pager =>
+                  {
+                      pager.PageSizes = new Dictionary<int, String> { { 5, "5" }, { 10, "10" }, { 20, "20" } };
+                      pager.ShowPageSizes = true;
+                      pager.PagesToDisplay = 3;
+                      pager.CurrentPage = 1;
+                      pager.RowsPerPage = 5;
+                  })
+            )
+        }
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div>
+                    <textarea id="CKEditor" name="CKEditor"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Web Grid -->
+<script src="~/js/mvc-grid/mvc-grid.js"></script>
+<script>
+    [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+        new MvcGrid(element);
+    });
+</script>
+
+<!-- CKEditor -->
+<script>
+
+ CKEDITOR.replace('CKEditor');
+
+</script>
+
+<!-- Show Email (Button View) -->
+
+<script>
+
+    function showEmailContent(EmailId) {
+        CKEDITOR.instances['CKEditor']
+        $(new Object()).load('@Url.Action("GetEmailContent", "Gmail")?EmailId=' + EmailId, function(data){
+     CKEDITOR.instances['CKEditor'].setData(data);
+});
+    }
+</script>

@@ -1,0 +1,61 @@
+﻿/*!
+ * Mvc.Grid 5.1.2
+ * https://github.com/NonFactors/MVC6.Grid
+ *
+ * Copyright © NonFactors
+ *
+ * Licensed under the terms of the MIT License
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+
+
+
+.mvc-grid th {
+    background-clip: padding-box;
+    background-color: rgba(256,256,256, 0.1);
+    position: relative;
+    border-radius: 5px;
+}
+.mvc-grid-sort {
+    color: white;
+    }
+.mvc-grid-pager button {
+    background-color: rgba(256,256,256,0.05);
+    border: 1px solid rgba(256,256,256,0.2);
+    line-height: 2.0em;
+    color: whitesmoke;
+    border-radius: 10px;
+}
+.mvc-grid-pager .active, .mvc-grid-pager .active:focus, .mvc-grid-pager .active:hover {
+    background-color: lightslategrey;
+    border-color: dimgrey;
+    color: #ffffff;
+}
+.mvc-grid-pager .disabled, .mvc-grid-pager .disabled:focus, .mvc-grid-pager .disabled:hover {
+    background-color: rgba(256,256,256,0.05);
+    cursor: not-allowed;
+    color: #777777;
+    outline: 0;
+}
+.mvc-grid-page-sizes select {
+    background-color: rgba(256,256,256,0.05);
+    border: 1px solid rgba(256,256,256,0.2);
+    color: whitesmoke;
+    border-radius: 5px;
+    width: 60px;
+    padding-left: 15px;
+    height: 35px;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    padding-left: 260px;
+}
+
+.correct {
+  
+    width: 100%;
+    padding-left: 260px;
+}
